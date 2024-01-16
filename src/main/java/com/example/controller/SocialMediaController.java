@@ -87,5 +87,17 @@ public List<Message> getAllMessageByAccountId(@PathVariable int account_id){
     return messageService.getAllMessagesPostedBy(account_id);
 }
 
+@RequestMapping(value = "/messages/{message_id}", method = RequestMethod.PATCH)
+@ResponseBody
+public int patchMessageByMessageId(@PathVariable int message_id, @RequestBody Message messageUpdate) {
+    int rowsAffected = messageService.updateMessageByMessageId(message_id, messageUpdate.getMessage_text());
+    if(rowsAffected > 0){
+        return rowsAffected;
+    }
+     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "");
+ 
+}
+
+
 
 }

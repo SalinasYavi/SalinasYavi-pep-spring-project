@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Service
 public class MessageService {
     @Autowired
@@ -55,5 +57,21 @@ public class MessageService {
      return messageRepository.getAllMessagesByPostedBy(posted_by);
        
     }
+
+    @Transactional
+    public int updateMessageByMessageId(int message_id, String message_text){
+        Optional<Message> message = messageRepository.findById(message_id);
+        if(message.isPresent()){
+            Message updatedMessage = message.get();
+            if(!message_text.trim().isBlank() && message_text.trim().length() < 255){
+                updatedMessage.setMessage_text(message_text);
+                messageRepository.save(updatedMessage);
+                return 1;
+               
+            }
+           
+        }
+        return 0;
+}
 
 }
