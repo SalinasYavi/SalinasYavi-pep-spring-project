@@ -13,14 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
-
-
-/**
- * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
- * found in readme.md as well as the test cases. You be required to use the @GET/POST/PUT/DELETE/etc Mapping annotations
- * where applicable as well as the @ResponseBody and @PathVariable annotations. You should
- * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
- */
 @RestController
 public class SocialMediaController {
 
@@ -61,6 +53,7 @@ public Message postMessage(@RequestBody Message message){
     }
     return newMessage;
 }
+
 @GetMapping(value = "/messages")
 @ResponseBody
 public List<Message> getAllMessages(){
@@ -72,6 +65,13 @@ public List<Message> getAllMessages(){
 public Message getMessageByMessageId(@PathVariable int message_id){
     return messageService.getMessageById(message_id);
 }
+
+@GetMapping("/accounts/{account_id}/messages")
+@ResponseBody
+public List<Message> getAllMessagesByAccountId(@PathVariable int account_id){
+    return messageService.getAllMessagesPostedBy(account_id);
+}
+
 @DeleteMapping("/messages/{message_id}")
 @ResponseBody
 public Integer deleteMessageByMessageId(@PathVariable Integer message_id){
@@ -81,11 +81,6 @@ public Integer deleteMessageByMessageId(@PathVariable Integer message_id){
     }
     return rowsAffected;
 }
-@GetMapping("/accounts/{account_id}/messages")
-@ResponseBody
-public List<Message> getAllMessageByAccountId(@PathVariable int account_id){
-    return messageService.getAllMessagesPostedBy(account_id);
-}
 
 @RequestMapping(value = "/messages/{message_id}", method = RequestMethod.PATCH)
 @ResponseBody
@@ -94,7 +89,7 @@ public int patchMessageByMessageId(@PathVariable int message_id, @RequestBody Me
     if(rowsAffected > 0){
         return rowsAffected;
     }
-     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "");
+     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Message doesn't exist");
  
 }
 

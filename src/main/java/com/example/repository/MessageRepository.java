@@ -9,8 +9,11 @@ import org.springframework.data.repository.query.Param;
 import com.example.entity.Message;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
-   
+    /**
+     * @param posted_by
+     * @return List of messages associate with posted_by
+     */
     @Query("FROM Message WHERE posted_by = :postedVar")
-    List<Message> getAllMessagesByPostedBy(@Param("postedVar") int postedVar);
+    List<Message> getAllMessagesByPostedBy(@Param("postedVar") int posted_by);
     
 }

@@ -9,9 +9,19 @@ import com.example.entity.Account;
 
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-    @Query("FROM Account WHERE username = :nameVar")
-    Account findAccountByUserName(@Param("nameVar") String username);
+    /**
+     * @param usernanme of account
+     * @return Account associated with username
+     */
+    @Query("FROM Account WHERE username = :usernameVar")
+    Account findAccountByUserName(@Param("usernameVar") String username);
 
+    
+    /**
+     * @param username of account
+     * @param password of account
+     * @return Account associate with username and password
+     */
     @Query("FROM Account WHERE username = :usernameVar AND password = :passwordVar")
     Account findAccountByUserNameAndPassword(@Param("usernameVar") String username, @Param("passwordVar") String password);
 
