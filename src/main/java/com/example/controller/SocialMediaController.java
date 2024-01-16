@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
+import com.example.service.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ public class SocialMediaController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private MessageService messageService;
 
 @PostMapping(value = "/register")
 @ResponseBody
@@ -46,6 +50,18 @@ public Account postLogin(@RequestBody Account account){
     }
     return loginAccount;
 }
+
+@PostMapping(value = "/messages")
+@ResponseBody
+public Message postMessage(@RequestBody Message message){
+    Message newMessage = messageService.persitMessage(message);
+    if(newMessage == null){
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "posted_by doesn't exist");
+    }
+    return newMessage;
+}
+
+
 
 
 }
