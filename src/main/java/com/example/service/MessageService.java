@@ -42,4 +42,13 @@ public class MessageService {
         }
     }
 
+    public Integer deleteMessageByMessageId(Integer message_id){
+        if(messageRepository.existsById(message_id)){
+            messageRepository.deleteById(message_id);
+            return 1;
+        }
+        return 0;
+
+    }
+
 }

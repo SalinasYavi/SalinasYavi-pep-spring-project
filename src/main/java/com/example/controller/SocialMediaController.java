@@ -72,6 +72,15 @@ public List<Message> getAllMessages(){
 public Message getMessageByMessageId(@PathVariable int message_id){
     return messageService.getMessageById(message_id);
 }
+@DeleteMapping("/messages/{message_id}")
+@ResponseBody
+public Integer deleteMessageByMessageId(@PathVariable Integer message_id){
+    int rowsAffected = messageService.deleteMessageByMessageId(message_id);
+    if(rowsAffected == 0){
+        return null;
+    }
+    return rowsAffected;
+}
 
 
 
