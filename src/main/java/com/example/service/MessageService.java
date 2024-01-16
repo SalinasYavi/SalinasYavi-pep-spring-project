@@ -51,4 +51,9 @@ public class MessageService {
 
     }
 
+    public List<Message> getAllMessagesPostedBy(int posted_by){
+     return messageRepository.getAllMessagesByPostedBy(posted_by);
+       
+    }
+
 }

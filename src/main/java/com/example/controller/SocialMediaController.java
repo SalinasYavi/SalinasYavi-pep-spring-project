@@ -81,7 +81,11 @@ public Integer deleteMessageByMessageId(@PathVariable Integer message_id){
     }
     return rowsAffected;
 }
-
+@GetMapping("/accounts/{account_id}/messages")
+@ResponseBody
+public List<Message> getAllMessageByAccountId(@PathVariable int account_id){
+    return messageService.getAllMessagesPostedBy(account_id);
+}
 
 
 }
