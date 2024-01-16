@@ -28,15 +28,24 @@ public class SocialMediaController {
 @ResponseBody
 public Account postAccount(@RequestBody Account account){
     Account newAccount = accountService.persistAccount(account);
-
     if(newAccount == null){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid username or password.");
     } else if(newAccount.getUsername() == null){
         throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists.");
     }
-
     return newAccount;
-
 }
+
+@PostMapping(value = "/login")
+@ResponseBody
+public Account postLogin(@RequestBody Account account){
+    Account loginAccount = accountService.loginAccount(account);
+    if(loginAccount == null){
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Incorrect username or password");
+
+    }
+    return loginAccount;
+}
+
 
 }
