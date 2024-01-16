@@ -67,6 +67,12 @@ public List<Message> getAllMessages(){
     return messageService.getAllMessages();
 }
 
+@GetMapping("/messages/{message_id}")
+@ResponseBody
+public Message getMessageByMessageId(@PathVariable int message_id){
+    return messageService.getMessageById(message_id);
+}
+
 
 
 }
