@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.web.server.ResponseStatusException;
+import java.util.List;
 
 
 
@@ -60,7 +61,11 @@ public Message postMessage(@RequestBody Message message){
     }
     return newMessage;
 }
-
+@GetMapping(value = "/messages")
+@ResponseBody
+public List<Message> getAllMessages(){
+    return messageService.getAllMessages();
+}
 
 
 
